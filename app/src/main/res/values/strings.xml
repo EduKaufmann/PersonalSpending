@@ -1,3 +1,13 @@
 <resources>
     <string name="app_name">Personal Spending</string>
+    <string name="date_format">yyyy-MM-dd</string>
+    <string-array name="types">
+        <item>Food</item>
+        <item>Transport</item>
+        <item>Services</item>
+        <item>Others</item>
+        <item>Shop</item>
+        <item>Supermarket</item>
+    </string-array>
+    <string name="inserted_bill">Bill registered</string>
 </resources>

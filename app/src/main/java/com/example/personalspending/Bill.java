@@ -1,16 +1,18 @@
 package com.example.personalspending;
 
+import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.List;
 
 public class Bill {
     private int _id;
     private String name;
     private Float value;
     private String place;
-    private String type;
+    private Integer type;
     private Date date;
 
-    public Bill(String name, Float value, String place, String type, Date date) {
+    public Bill(String name, Float value, String place, Integer type, Date date) {
         this.name = name;
         this.value = value;
         this.place = place;
@@ -18,7 +20,7 @@ public class Bill {
         this.date = date;
     }
 
-    public Bill(int id, String name, Float value, String place, String type, Date date) {
+    public Bill(int id, String name, Float value, String place, Integer type, Date date) {
         this._id = id;
         this.name = name;
         this.value = value;
@@ -36,15 +38,15 @@ public class Bill {
         return name;
     }
 
-    public String getValue() {
-        return Float.toString(value);
+    public Float getValue() {
+        return value;
     }
 
     public String getPlace() {
         return place;
     }
 
-    public String getType() {
+    public Integer getType() {
         return type;
     }
 
@@ -55,9 +57,12 @@ public class Bill {
     @Override
     public String toString() {
         return "Bill{" +
-                "nome='" + name + '\'' +
-                ", ANO=" + value +
-                ", marca='" + place + '\'' +
+                "_id='" + _id + '\'' +
+                "name='" + name + '\'' +
+                "value='" + value + '\'' +
+                "place='" + place + '\'' +
+                "type='" + type + '\'' +
+                "date='" + date + '\'' +
                 '}';
     }
 }

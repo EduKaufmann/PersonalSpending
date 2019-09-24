@@ -20,6 +20,7 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View v) {
                 Intent it = new Intent(MainActivity.this,RegisterActivity.class);
                 startActivity(it);
+                R.string.
             }
         });
     }

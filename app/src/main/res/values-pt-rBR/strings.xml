@@ -1,4 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name">Gastos pessoais</string>
+    <string name="date_format">dd/MM/yyyy</string>
+    <string-array name="types">
+        <item>Alimentação</item>
+        <item>Transporte</item>
+        <item>Serviços</item>
+        <item>Outros</item>
+        <item>Compras</item>
+        <item>Supermercado</item>
+    </string-array>
+    <string name="inserted_bill">Conta registrada</string>
 </resources>
