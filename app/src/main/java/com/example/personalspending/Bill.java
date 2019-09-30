@@ -5,6 +5,9 @@ import java.util.Date;
 import java.util.List;
 
 public class Bill {
+    public static String types[];
+    public static String dateFormat;
+
     private int _id;
     private String name;
     private Float value;
@@ -52,6 +55,11 @@ public class Bill {
 
     public Date getDate() {
         return date;
+    }
+
+    public String getDateFormated(){SimpleDateFormat
+            dateFormatter = new SimpleDateFormat(this.dateFormat);
+            return dateFormatter.format(this.getDate());
     }
 
     @Override

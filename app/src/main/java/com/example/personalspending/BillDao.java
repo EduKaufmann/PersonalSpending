@@ -23,6 +23,8 @@ public class BillDao {
 
     public Boolean save(Bill bill){
         ContentValues values;
+        SimpleDateFormat dateFormatter = new SimpleDateFormat("yyyy-MM-dd");
+        Log.w("DateOutput",dateFormatter.format(bill.getDate()));
         long result;
         db = bank.getWritableDatabase();
         try{
@@ -31,7 +33,8 @@ public class BillDao {
             values.put(bank.VALUE, bill.getValue());
             values.put(bank.PLACE, bill.getPlace());
             values.put(bank.TYPE, bill.getType());
-            values.put(bank.DATE, bill.getDate().toString());
+            values.put(bank.DATE, dateFormatter.format(bill.getDate()));
+            Log.w("Values",values.toString());
             result= db.insert(bank.TABLE,null,values);
             db.close();
             if (result !=-1){
@@ -39,7 +42,7 @@ public class BillDao {
                 return true;
             }
         }catch (SQLException e){
-            Log.e("ERRO",e.getMessage());
+            Log.e("ERROR",e.getMessage());
         }
 
         return false;
@@ -50,32 +53,43 @@ public class BillDao {
     public ArrayList<Bill> list(){
         ArrayList<Bill> lista= new ArrayList<>();
         Cursor cursor;
-        SimpleDateFormat dateFormat = new SimpleDateFormat();
+        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
         String[] campos={DbHelper.ID, DbHelper.NAME, DbHelper.VALUE,DbHelper.PLACE,DbHelper.TYPE,DbHelper.DATE};
         db= bank.getReadableDatabase();
-        cursor = db.query(DbHelper.TABLE,campos,null,null,null,null,null);
+        cursor = db.query(DbHelper.TABLE,campos,null,null,null,null,DbHelper.DATE);
         if (cursor!=null){
-            cursor.moveToFirst();
-            while (cursor.moveToNext()){
+            if(cursor.moveToFirst())
+            do{
+                Log.d("RegisterOutput",cursor.getString(0) + " - " + cursor.getString(1) + " - " + cursor.getString(2) + " - " + cursor.getString(3) +  " - " + cursor.getString(4) + " - " + cursor.getString(5));
                 int id= cursor.getInt(0) ;
                 String name = cursor.getString(1) ;
                 Float value = cursor.getFloat(2) ;
                 String place = cursor.getString(3) ;
-                Integer type = cursor.getInt(3) ;
-                Date date = dateFormat.parse(cursor.getString(4)) ;
-                Bill b= new Bill(id,name,place,type);
+                Integer type = cursor.getInt(4) ;
+                Date date = null;
+                try{
+                    date = dateFormat.parse(cursor.getString(5)) ;
+                } catch (Exception e){
+                    Log.e("Error", "Unable to parse date:" + cursor.getString(5), e);
+                }
+                Bill b = new Bill(id,name,value,place,type,date);
                 lista.add(b);
-            }
+            }while (cursor.moveToNext());
             return lista;
         }
         return null;
     }
 
-    public String deletar(Carros c){
-        String where = DbHelper.ID+ "= " +c.getId();
-        db= bank.getReadableDatabase();
-        db.delete(DbHelper.TABELA,where,null);
-        db.close();
-        return "Removido";
+    public boolean delete(Bill b){
+        try{
+            String where = DbHelper.ID+ "= " +b.getId();
+            db= bank.getReadableDatabase();
+            db.delete(DbHelper.TABLE,where,null);
+            db.close();
+            return true;
+        } catch (Exception e){
+            Log.e("Error", "Unable to delete bill(id="+b.getId()+" name="+b.getName()+".", e);
+            return false;
+        }
     }
 }

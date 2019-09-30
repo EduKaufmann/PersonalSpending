@@ -1,6 +1,8 @@
 <resources>
     <string name="app_name">Personal Spending</string>
     <string name="date_format">yyyy-MM-dd</string>
+    <string name="date_format_display">yyyy-mm-dd</string>
+    <string name="empty_database">There is nothing to show yet. Try pressing the \"Add Spending\" button to begin!</string>
     <string-array name="types">
         <item>Food</item>
         <item>Transport</item>
@@ -10,4 +12,16 @@
         <item>Supermarket</item>
     </string-array>
     <string name="inserted_bill">Bill registered</string>
+    <string name="show_spendings">Show Spendings</string>
+    <string name="addSpending">Add Spending</string>
+    <string name="on">on</string>
+    <string name="name">Name</string>
+    <string name="place">Place</string>
+    <string name="date">Date</string>
+    <string name="value">Value</string>
+    <string name="category">Category</string>
+    <string name="saveSuccess">Saved sucessfully</string>
+    <string name="saveError">Failed to save</string>
+    <string name="dateError">Invalid date format</string>
+    <string name="fieldsError">Please, fill in all fields</string>
 </resources>

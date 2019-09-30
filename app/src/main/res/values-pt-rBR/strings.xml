@@ -2,6 +2,8 @@
 <resources>
     <string name="app_name">Gastos pessoais</string>
     <string name="date_format">dd/MM/yyyy</string>
+    <string name="date_format_display">dd/mm/aaaa</string>
+    <string name="empty_database">Não há nada para mostrar ainda. Tente apertar o botão \"Adicionar Gasto\" para começar!</string>
     <string-array name="types">
         <item>Alimentação</item>
         <item>Transporte</item>
@@ -11,4 +13,16 @@
         <item>Supermercado</item>
     </string-array>
     <string name="inserted_bill">Conta registrada</string>
+    <string name="show_spendings">Mostrar Gastos</string>
+    <string name="addSpending">Adicionar Gasto</string>
+    <string name="on">em</string>
+    <string name="name">Nome</string>
+    <string name="place">Lugar</string>
+    <string name="date">Data</string>
+    <string name="value">Valor</string>
+    <string name="category">Categoria</string>
+    <string name="saveSuccess">Salvo com sucesso</string>
+    <string name="saveError">Falha ao salvar</string>
+    <string name="dateError">Formato de data inválido</string>
+    <string name="fieldsError">Por favor, preencha todos os campos</string>
 </resources>
