@@ -19,11 +19,11 @@ public class BillAdapter extends ArrayAdapter {
 
     public View getView(int position, View convertView, ViewGroup parent){
         View listItemView =convertView;
-        DecimalFormat formatter = (new DecimalFormat("#,###.00"));
+        DecimalFormat formatter = (new DecimalFormat("#,##0.00"));
         SimpleDateFormat dateFormatter = new SimpleDateFormat(Bill.dateFormat);
 
         if(listItemView==null) {
-            listItemView = LayoutInflater.from(getContext()).inflate(R.layout.list_bill, parent, false);
+            listItemView = LayoutInflater.from(getContext()).inflate(R.layout.item_bill, parent, false);
         }
         Bill current = (Bill) getItem(position);
         TextView name = (TextView) listItemView.findViewById(R.id.txtName);

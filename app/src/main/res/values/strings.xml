@@ -12,6 +12,11 @@
         <item>Supermarket</item>
     </string-array>
     <string name="inserted_bill">Bill registered</string>
+    <string name="excluded_bill">Bill excluded</string>
+    <string name="remove_bill_confirmation">Are you sure you want to exclude this Bill?</string>
+    <string name="exclude">Exclude</string>
+    <string name="confirm">Confirm</string>
+    <string name="cancel">Cancel</string>
     <string name="show_spendings">Show Spendings</string>
     <string name="addSpending">Add Spending</string>
     <string name="on">on</string>
@@ -22,6 +27,7 @@
     <string name="category">Category</string>
     <string name="saveSuccess">Saved sucessfully</string>
     <string name="saveError">Failed to save</string>
+    <string name="excludeError">Failed to exclude</string>
     <string name="dateError">Invalid date format</string>
     <string name="fieldsError">Please, fill in all fields</string>
 </resources>

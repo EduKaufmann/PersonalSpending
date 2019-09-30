@@ -13,6 +13,11 @@
         <item>Supermercado</item>
     </string-array>
     <string name="inserted_bill">Conta registrada</string>
+    <string name="excluded_bill">Conta excluida</string>
+    <string name="remove_bill_confirmation">Tem certeza que deseja excluir este gasto?</string>
+    <string name="exclude">Excluir</string>
+    <string name="confirm">Confirmar</string>
+    <string name="cancel">Cancelar</string>
     <string name="show_spendings">Mostrar Gastos</string>
     <string name="addSpending">Adicionar Gasto</string>
     <string name="on">em</string>
@@ -23,6 +28,7 @@
     <string name="category">Categoria</string>
     <string name="saveSuccess">Salvo com sucesso</string>
     <string name="saveError">Falha ao salvar</string>
+    <string name="excludeError">Falha ao excluir</string>
     <string name="dateError">Formato de data inválido</string>
     <string name="fieldsError">Por favor, preencha todos os campos</string>
 </resources>

@@ -33,7 +33,7 @@ public class Bill {
 
     }
 
-    public int getId() {
+    public Integer getId() {
         return _id;
     }
 
