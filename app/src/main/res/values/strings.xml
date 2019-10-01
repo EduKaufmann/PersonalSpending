@@ -3,6 +3,8 @@
     <string name="date_format">yyyy-MM-dd</string>
     <string name="date_format_display">yyyy-mm-dd</string>
     <string name="empty_database">There is nothing to show yet. Try pressing the \"Add Spending\" button to begin!</string>
+    <string name="monthly_spend">Monthly Spend</string>
+    <string name="total_spend">Total Spend</string>
     <string-array name="types">
         <item>Food</item>
         <item>Transport</item>

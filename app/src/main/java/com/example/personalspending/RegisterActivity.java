@@ -1,7 +1,10 @@
 package com.example.personalspending;
 
+import androidx.appcompat.app.ActionBar;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
@@ -27,6 +30,9 @@ public class RegisterActivity extends AppCompatActivity {
 
     Boolean isNew;
 
+    Bill current;
+    BillDao billDao;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -43,7 +49,7 @@ public class RegisterActivity extends AppCompatActivity {
 
         Intent it = getIntent();
         isNew = it.getBooleanExtra("isNew",true);
-        final Bill current = (Bill)it.getSerializableExtra("bill");
+        current = (Bill)it.getSerializableExtra("bill");
 
         if(!isNew){
             edtName.setText(current.getName());
@@ -52,6 +58,8 @@ public class RegisterActivity extends AppCompatActivity {
             edtDate.setText(current.getDateFormated());
             spnType.setSelection(current.getType());
         }
+
+
 
 
         btnAdd.setOnClickListener(new View.OnClickListener() {
@@ -69,7 +77,7 @@ public class RegisterActivity extends AppCompatActivity {
                         SimpleDateFormat dateFormatter = new SimpleDateFormat(getString(R.string.date_format));
                         Date date = dateFormatter.parse(edtDate.getText().toString());
                         Bill bill= new Bill(edtName.getText().toString().trim(),  Float.parseFloat(edtValue.getText().toString()),edtPlace.getText().toString().trim(),spnType.getSelectedItemPosition(),date);
-                        BillDao billDao= new BillDao(getBaseContext());
+                        billDao= new BillDao(getBaseContext());
                         if(!isNew)
                             bill.setId(current.getId());
                         else
@@ -100,8 +108,13 @@ public class RegisterActivity extends AppCompatActivity {
         MenuInflater inflater = getMenuInflater();
 
         inflater.inflate(R.menu.menu_register, menu);
-        if(isNew)
+
+        MenuItem actionDelete = menu.findItem(R.id.action_delete);
+
+        if(isNew){
             setTitle(getString(R.string.addSpending));
+            actionDelete.setVisible(false);
+        }
         else
             setTitle(getString(R.string.editSpending));
 
@@ -111,6 +124,34 @@ public class RegisterActivity extends AppCompatActivity {
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         int id =item.getItemId();
+
+        if (id==R.id.action_delete) {
+
+            billDao = new BillDao(getBaseContext());
+
+
+            new AlertDialog.Builder(this)
+                    .setTitle(current.getName())
+                    .setMessage(getString(R.string.remove_bill_confirmation))
+                    .setPositiveButton(getText(R.string.exclude), new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog, int which) {
+                            String msg;
+                            if(billDao.delete(current)){
+                                msg = getString(R.string.excluded_bill);
+                            }
+                            else
+                                msg = getString(R.string.excludeError);
+
+                            Toast.makeText(getBaseContext(),msg,Toast.LENGTH_LONG).show();
+                            finish();
+                        }
+                    })
+                    .setNegativeButton(getString(R.string.cancel), new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog, int which) {
+                        }
+                    })
+                    .show();
+        }
 
         if (id==android.R.id.home) {
             finish();

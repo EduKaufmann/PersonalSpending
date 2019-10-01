@@ -115,8 +115,7 @@ public class MainActivity extends AppCompatActivity {
                             public void onClick(DialogInterface dialog, int which) {
                                 String msg;
                                 if(billDao.delete(current)){
-                                    adapter.remove(current);
-                                    adapter.notifyDataSetChanged();
+                                    updateData();
                                     msg = getString(R.string.excluded_bill);
                                 }
                                 else
@@ -140,8 +139,11 @@ public class MainActivity extends AppCompatActivity {
         super.onResume();
         //Refresh your stuff here
         Log.d("WAI","Resume");
+        updateData();
 
-        billDao = new BillDao(getApplicationContext());
+    }
+
+    public void updateData(){ billDao = new BillDao(getApplicationContext());
         ArrayList<Bill> listBill = billDao.list();
         adapter = new BillAdapter(this,listBill);
         ListView list = findViewById(R.id.spendingList);
@@ -154,16 +156,16 @@ public class MainActivity extends AppCompatActivity {
         for(Bill item: listBill){
             totalSpend += item.getValue();
 
-            String monthNumber  = (String) DateFormat.format("MM",   item.getDate());
-            String thisMonthNumber  = (String) DateFormat.format("MM",   Calendar.getInstance().getTime());
-            if (monthNumber.equals(thisMonthNumber)){
+            String monthYearNumber  = (String) DateFormat.format("yyyy-MM",   item.getDate());
+            String thisMonthYearNumber  = (String) DateFormat.format("yyyy-MM",   Calendar.getInstance().getTime());
+            if (monthYearNumber.equals(thisMonthYearNumber)){
                 monthlyExpenses += item.getValue();
             }
         }
 
         TextView txtMonthlyExpenses = findViewById(R.id.txtMonthlyExpenses);
-        txtMonthlyExpenses.setText("Gastos Mensais R$"+formatter.format(monthlyExpenses));
-        TextView txtTotalspend = findViewById(R.id.txtTotalspend);
-        txtTotalspend.setText("Gastos Totais R$"+formatter.format(totalSpend));
+        txtMonthlyExpenses.setText(getString(R.string.monthly_spend)+": R$"+formatter.format(monthlyExpenses));
+        TextView txtTotalSpend = findViewById(R.id.txtTotalspend);
+        txtTotalSpend.setText(getString(R.string.total_spend)+": R$"+formatter.format(totalSpend));
     }
 }
