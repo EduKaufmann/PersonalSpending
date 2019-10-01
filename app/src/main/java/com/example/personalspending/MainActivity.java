@@ -13,13 +13,20 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.lang.reflect.Array;
+import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
+import android.text.format.DateFormat;
 
 public class MainActivity extends AppCompatActivity {
     BillAdapter adapter;
     BillDao billDao;
     ListView list;
+    TextView txtTotalspend;
+    TextView txtMonthlyExpenses;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -85,9 +92,30 @@ public class MainActivity extends AppCompatActivity {
         super.onResume();
         //Refresh your stuff here
         Log.d("WAI","Resume");
+
         billDao = new BillDao(getApplicationContext());
-        adapter = new BillAdapter(this,billDao.list());
+        ArrayList<Bill> listBill = billDao.list();
+        adapter = new BillAdapter(this,listBill);
         ListView list = findViewById(R.id.spendingList);
         list.setAdapter(adapter);
+
+        Float totalSpend = Float.valueOf(0);
+        Float monthlyExpenses = Float.valueOf(0);
+        DecimalFormat formatter = (new DecimalFormat("#,##0.00"));
+
+        for(Bill item: listBill){
+            totalSpend += item.getValue();
+
+            String monthNumber  = (String) DateFormat.format("MM",   item.getDate());
+            String thisMonthNumber  = (String) DateFormat.format("MM",   Calendar.getInstance().getTime());
+            if (monthNumber.equals(thisMonthNumber)){
+                monthlyExpenses += item.getValue();
+            }
+        }
+
+        TextView txtMonthlyExpenses = findViewById(R.id.txtMonthlyExpenses);
+        txtMonthlyExpenses.setText("Gastos Mensais R$"+formatter.format(monthlyExpenses));
+        TextView txtTotalspend = findViewById(R.id.txtTotalspend);
+        txtTotalspend.setText("Gastos Totais R$"+formatter.format(totalSpend));
     }
 }
