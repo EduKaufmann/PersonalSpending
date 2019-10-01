@@ -35,7 +35,11 @@ public class BillDao {
             values.put(bank.TYPE, bill.getType());
             values.put(bank.DATE, dateFormatter.format(bill.getDate()));
             Log.w("Values",values.toString());
-            result= db.insert(bank.TABLE,null,values);
+
+            if(bill.getId() != null){
+                result = db.update(bank.TABLE,values,"_ID = " + bill.getId(),null);
+            }else
+                result= db.insert(bank.TABLE,null,values);
             db.close();
             if (result !=-1){
 

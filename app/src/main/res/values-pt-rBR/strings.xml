@@ -12,14 +12,16 @@
         <item>Compras</item>
         <item>Supermercado</item>
     </string-array>
-    <string name="inserted_bill">Conta registrada</string>
-    <string name="excluded_bill">Conta excluida</string>
+    <string name="save">Salvar</string>
+    <string name="inserted_bill">Gasto registrado</string>
+    <string name="excluded_bill">Gasto excluído</string>
     <string name="remove_bill_confirmation">Tem certeza que deseja excluir este gasto?</string>
     <string name="exclude">Excluir</string>
     <string name="confirm">Confirmar</string>
     <string name="cancel">Cancelar</string>
     <string name="show_spendings">Mostrar Gastos</string>
     <string name="addSpending">Adicionar Gasto</string>
+    <string name="editSpending">Editar Gasto</string>
     <string name="on">em</string>
     <string name="name">Nome</string>
     <string name="place">Lugar</string>
