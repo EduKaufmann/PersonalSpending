@@ -58,7 +58,9 @@ public class MainActivity extends AppCompatActivity {
                 // When clicked, show a toast with the TextView text or do whatever you need.
                 final Bill current = (Bill) adapter.getItem(position);
 
-
+                Intent it = new Intent(getBaseContext(), RegisterActivity.class);
+                it.putExtra("isNew",false);
+                startActivity(it);
 
                 new AlertDialog.Builder(MainActivity.this)
                         .setTitle(current.getName())
@@ -83,6 +85,52 @@ public class MainActivity extends AppCompatActivity {
                         })
                         .show();
 
+            }
+        });
+
+        list.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                // When clicked, show a toast with the TextView text or do whatever you need.
+                final Bill current = (Bill) adapter.getItem(position);
+
+                Intent it = new Intent(getBaseContext(), RegisterActivity.class);
+                it.putExtra("bill",current);
+                it.putExtra("isNew",false);
+                startActivity(it);
+
+            }
+        });
+
+        list.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
+            @Override
+            public boolean onItemLongClick(AdapterView<?> arg0, View arg1,
+                                           int position, long id) {
+                // When clicked, show a toast with the TextView text or do whatever you need.
+                final Bill current = (Bill) adapter.getItem(position);
+
+                new AlertDialog.Builder(MainActivity.this)
+                        .setTitle(current.getName())
+                        .setMessage(getString(R.string.remove_bill_confirmation))
+                        .setPositiveButton(getText(R.string.exclude), new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int which) {
+                                String msg;
+                                if(billDao.delete(current)){
+                                    adapter.remove(current);
+                                    adapter.notifyDataSetChanged();
+                                    msg = getString(R.string.excluded_bill);
+                                }
+                                else
+                                    msg = getString(R.string.excludeError);
+
+                                Toast.makeText(getBaseContext(),msg,Toast.LENGTH_LONG).show();
+                            }
+                        })
+                        .setNegativeButton(getString(R.string.cancel), new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int which) {
+                            }
+                        })
+                        .show();
+                return true;
             }
         });
     }

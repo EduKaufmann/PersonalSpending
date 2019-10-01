@@ -4,6 +4,9 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -21,6 +24,9 @@ public class RegisterActivity extends AppCompatActivity {
     Spinner spnType;
     EditText edtDate;
     Button btnAdd;
+
+    Boolean isNew;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -33,6 +39,20 @@ public class RegisterActivity extends AppCompatActivity {
         btnAdd = findViewById(R.id.btnAdd);
 
         edtDate.setHint(edtDate.getHint().toString()+" ("+getString(R.string.date_format_display)+")");
+
+
+        Intent it = getIntent();
+        isNew = it.getBooleanExtra("isNew",true);
+        final Bill current = (Bill)it.getSerializableExtra("bill");
+
+        if(!isNew){
+            edtName.setText(current.getName());
+            edtValue.setText(current.getValue().toString());
+            edtPlace.setText(current.getPlace());
+            edtDate.setText(current.getDateFormated());
+            spnType.setSelection(current.getType());
+        }
+
 
         btnAdd.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -50,6 +70,10 @@ public class RegisterActivity extends AppCompatActivity {
                         Date date = dateFormatter.parse(edtDate.getText().toString());
                         Bill bill= new Bill(edtName.getText().toString().trim(),  Float.parseFloat(edtValue.getText().toString()),edtPlace.getText().toString().trim(),spnType.getSelectedItemPosition(),date);
                         BillDao billDao= new BillDao(getBaseContext());
+                        if(!isNew)
+                            bill.setId(current.getId());
+                        else
+                            bill.setId(0);
 
                         if(billDao.save(bill)){
                             success = true;
@@ -69,5 +93,28 @@ public class RegisterActivity extends AppCompatActivity {
                     finish();
             }
         });
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater inflater = getMenuInflater();
+
+        inflater.inflate(R.menu.menu_register, menu);
+        if(isNew)
+            setTitle(getString(R.string.addSpending));
+        else
+            setTitle(getString(R.string.editSpending));
+
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        int id =item.getItemId();
+
+        if (id==android.R.id.home) {
+            finish();
+        }
+        return true;
     }
 }

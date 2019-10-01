@@ -1,10 +1,11 @@
 package com.example.personalspending;
 
+import java.io.Serializable;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 
-public class Bill {
+public class Bill implements Serializable {
     public static String types[];
     public static String dateFormat;
 
@@ -33,8 +34,12 @@ public class Bill {
 
     }
 
-    public Integer getId() {
+    public int getId() {
         return _id;
+    }
+
+    public void setId(int _id) {
+        this._id = _id;
     }
 
     public String getName() {
