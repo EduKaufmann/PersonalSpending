@@ -53,7 +53,6 @@ public class MainActivity extends AppCompatActivity {
 
                 Intent it = new Intent(getBaseContext(), RegisterActivity.class);
                 it.putExtra("isNew",false);
-                it.putExtra("id",current.getId().toString());
                 startActivity(it);
 
                 new AlertDialog.Builder(MainActivity.this)
@@ -90,7 +89,6 @@ public class MainActivity extends AppCompatActivity {
                 Intent it = new Intent(getBaseContext(), RegisterActivity.class);
                 it.putExtra("bill",current);
                 it.putExtra("isNew",false);
-                it.putExtra("id",current.getId().toString());
                 startActivity(it);
 
             }

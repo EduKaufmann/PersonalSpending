@@ -36,7 +36,7 @@ public class BillDao {
             values.put(bank.DATE, dateFormatter.format(bill.getDate()));
             Log.w("Values",values.toString());
 
-            if(bill.getId() != null){
+            if(bill.getId() > 0){
                 result = db.update(bank.TABLE,values,"_ID = " + bill.getId(),null);
             }else
                 result= db.insert(bank.TABLE,null,values);
@@ -60,7 +60,7 @@ public class BillDao {
         SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
         String[] campos={DbHelper.ID, DbHelper.NAME, DbHelper.VALUE,DbHelper.PLACE,DbHelper.TYPE,DbHelper.DATE};
         db= bank.getReadableDatabase();
-        cursor = db.query(DbHelper.TABLE,campos,null,null,null,null,DbHelper.DATE);
+        cursor = db.query(DbHelper.TABLE,campos,null,null,null,null,DbHelper.DATE + " DESC");
         if (cursor!=null){
             if(cursor.moveToFirst())
             do{

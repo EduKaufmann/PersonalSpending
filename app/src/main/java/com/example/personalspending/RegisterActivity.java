@@ -72,6 +72,8 @@ public class RegisterActivity extends AppCompatActivity {
                         BillDao billDao= new BillDao(getBaseContext());
                         if(!isNew)
                             bill.setId(current.getId());
+                        else
+                            bill.setId(0);
 
                         if(billDao.save(bill)){
                             success = true;

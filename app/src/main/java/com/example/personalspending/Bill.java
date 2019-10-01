@@ -34,7 +34,7 @@ public class Bill implements Serializable {
 
     }
 
-    public Integer getId() {
+    public int getId() {
         return _id;
     }
 
